@@ -6,7 +6,11 @@ export default function Box(props) {
     const [hovered, hover] = useState(false)
     const [clicked, click] = useState(false)
 
-    // useFrame((state, delta) => (ref.current.rotation.x += delta))
+    useFrame((state, delta) => {
+        // console.log(ref.current.keyName.replace(/\D/g, '')%10/10)
+        
+        ref.current.scale.y = 0.5 +  Math.sin(state.clock.elapsedTime + ref.current.keyName.replace(/\D/g, '')%900)/3
+    })
 
     return (
       <mesh
@@ -14,10 +18,11 @@ export default function Box(props) {
         ref={ref}
         // scale={clicked ? 1.5 : 1}
         // onClick={(event) => click(!clicked)}
-        onPointerOver={(event) => hover(true)}
-        onPointerOut={(event) => hover(false)}>
+        // onPointerOver={(event) => hover(true)}
+        // onPointerOut={(event) => hover(false)}
+        >
         <boxGeometry args={[0.1, 1, 0.1]} />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+        <meshNormalMaterial/>
       </mesh>
     )
 } 

@@ -9,9 +9,11 @@ import Box from './comp/Box'
 export default function Experience()
 {
 
-    const { numberOfBoxes } = useControls ('number of boxes', {
-        numberOfBoxes : {value: 100}
-    })
+    // const { numberOfBoxes } = useControls ('number of boxes', {
+    //     numberOfBoxes : {value: 100}
+    // })
+    const numberOfBoxes = 900;
+
 
     const positionBoxes = useMemo(()=>
     {
@@ -19,14 +21,16 @@ export default function Experience()
 
         for(let i=0; i<numberOfBoxes; i++){
             let temp = []
-            temp.push(10*(Math.random()-0.3))
+            temp.push(i%30/10)
             temp.push(-1)
-            temp.push(7*(Math.random()-0.7))
+            temp.push(parseInt(i/30)/10)
             position.push(temp)
+            console.log(parseInt(i/30));
         }
         return position
 
     }, [numberOfBoxes])
+
     
     return <>
         <Perf position="top-left"/>  
@@ -34,10 +38,7 @@ export default function Experience()
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} />
-
-        {/* <Box position={[-1.2, 0, 0]} />
-        <Box position={[1.2, 0, 0]} /> */}
-
+        
         {[...Array(numberOfBoxes)].map((value, index)=>
                 <Box 
                     key={`index${index}`} 
